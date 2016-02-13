@@ -105,4 +105,12 @@ function checkboxClicked()
  
     // save the to-do list
     saveToDoList();
-}
+} 
+// view the content of the selected row
+       
+        function viewSelectedRow(todoTextField)
+        {
+            alert(todoTextField.value);
+        }
+
+    
