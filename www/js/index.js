@@ -21,6 +21,8 @@ function createNewToDo()
  
 }
 
+
+
 // add a row to the table
 var rowID = 0;
 function addTableRow(todoDictionary, appIsLoading)
@@ -73,6 +75,9 @@ function addTableRow(todoDictionary, appIsLoading)
  
     if (!appIsLoading) alert("Task Added Successfully.");
 }
+
+
+
 // add the strike-through styling to completed tasks
 function checkboxClicked()
 {
@@ -106,11 +111,14 @@ function checkboxClicked()
     // save the to-do list
     saveToDoList();
 } 
+
+
+
+
 // view the content of the selected row
-       
-        function viewSelectedRow(todoTextField)
-        {
-            alert(todoTextField.value);
-        }
+function viewSelectedRow(todoTextField)
+{
+    alert(todoTextField.value);
+}
 
     
