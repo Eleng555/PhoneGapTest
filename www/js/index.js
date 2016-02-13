@@ -73,3 +73,36 @@ function addTableRow(todoDictionary, appIsLoading)
  
     if (!appIsLoading) alert("Task Added Successfully.");
 }
+// add the strike-through styling to completed tasks
+function checkboxClicked()
+{
+    var table = document.getElementById("dataTable");
+    var rowCount = table.rows.length;
+ 
+    // loop through all rows of the table
+    for(var i = 0; i < rowCount; i++)
+    {
+        var row = table.rows[i];
+        var chkbox = row.cells[0].childNodes[0];
+        var textbox = row.cells[1].childNodes[0];
+ 
+        // if the checkbox is checked, add the strike-through styling
+        if(null != chkbox && true == chkbox.checked)
+        {
+            if(null != textbox)
+            {       
+                textbox.style.setProperty("text-decoration", "line-through");
+            }
+        }
+ 
+        // if the checkbox isn't checked, remove the strike-through styling
+        else
+        {
+            textbox.style.setProperty("text-decoration", "none");
+        }
+ 
+    }
+ 
+    // save the to-do list
+    saveToDoList();
+}
