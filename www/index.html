@@ -5,13 +5,15 @@
         <link rel="stylesheet" type="text/css" href="css/index.css"/>
         <script type="text/javascript" src="js/index.js"></script>
     </head>
-    <body>
-        <input type="button" value="Add To-Do"/>
-        <input type="button" value="Remove Completed Tasks"/>
+   <body onload="loadToDoList()">
+
+        <input type="button" value="Add To-Do" onclick="createNewToDo()"/>
+        <input type="button" value="Remove Completed Tasks()" onclick="removeCompletedTasks()"/>
         <br/><br/>
         <table id="dataTable" width="100%" border="1">
- 
         </table>
- 
+        
     </body>
+ 
+    
 </html>
