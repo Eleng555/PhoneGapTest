@@ -121,4 +121,134 @@ function viewSelectedRow(todoTextField)
     alert(todoTextField.value);
 }
 
-    
+// delete the selected row
+function deleteSelectedRow(deleteButton)
+{
+    var p = deleteButton.parentNode.parentNode;
+    p.parentNode.removeChild(p);
+    saveToDoList();
+}
+
+// remove completed tasks
+function removeCompletedTasks()
+{
+    var table = document.getElementById("dataTable");
+    var rowCount = table.rows.length;
+ 
+    // loop through all rows of the table
+    for(var i = 0; i < rowCount; i++)
+    {
+        // if the checkbox is checked, delete the row
+        var row = table.rows[i];
+        var chkbox = row.cells[0].childNodes[0];
+        if(null != chkbox && true == chkbox.checked)
+        {
+            table.deleteRow(i);
+            rowCount--;
+            i--;
+        }
+    }
+ 
+    // save the to-do list
+    saveToDoList();
+ 
+    alert("Completed Tasks Were Removed Successfully.");
+}
+
+// save the to-do list
+function saveToDoList()
+{
+    var todoArray = {};
+    var checkBoxState = 0;
+    var textValue = "";
+ 
+    var table = document.getElementById("dataTable");
+    var rowCount = table.rows.length;
+ 
+    if (rowCount != 0)
+    {
+        // loop through all rows of the table
+        for(var i=0; i<rowCount; i++)
+        {
+            var row = table.rows[i];
+ 
+            // determine the state of the checkbox
+            var chkbox = row.cells[0].childNodes[0];
+            if(null != chkbox && true == chkbox.checked)
+            {
+                checkBoxState = 1;
+            }
+            else
+            {
+                checkBoxState= 0;
+            }
+ 
+            // retrieve the content of the to-do
+            var textbox = row.cells[1].childNodes[0];
+            textValue = textbox.value;
+ 
+            // populate the array
+            todoArray["row" + i] =
+            {
+                check : checkBoxState,
+                text : textValue
+            };
+        }
+    }
+    else
+    {
+        todoArray = null;
+    }
+ 
+    // use the local storage API to persist the data as JSON
+    window.localStorage.setItem("todoList", JSON.stringify(todoArray));
+}
+
+// load the to-do list
+function loadToDoList()
+{
+    // use the local storage API load the JSON formatted to-do list, and decode it
+    var theList = JSON.parse(window.localStorage.getItem("todoList"));
+ 
+    if (null == theList || theList == "null")
+    {
+        deleteAllRows();
+    }
+    else
+    {
+        var count = 0;
+        for (var obj in theList)
+        {
+            count++;
+        }
+ 
+        // remove any existing rows from the table
+        deleteAllRows();
+ 
+        // loop through the to-dos
+        for(var i = 0; i < count; i++)
+        {
+            // adding a row to the table for each one
+            addTableRow(theList["row" + i], true);
+        }
+    }
+}
+
+// delete all the rows
+function deleteAllRows()
+{
+    var table = document.getElementById("dataTable");
+    var rowCount = table.rows.length;
+ 
+    // loop through all rows of the table
+    for(var i = 0; i < rowCount; i++)
+    {
+        // delete the row
+        table.deleteRow(i);
+        rowCount--;
+        i--;
+    }
+ 
+    // save the to-do list
+    saveToDoList();
+}
