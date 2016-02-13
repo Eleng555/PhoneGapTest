@@ -39,6 +39,7 @@ function addTableRow(todoDictionary, appIsLoading)
     element1.name = "chkbox[]";
     element1.checked = todoDictionary["check"];
     element1.setAttribute("onclick", "checkboxClicked()");
+	element1.className = "checkbox";
     cell1.appendChild(element1);
  
     // create the textbox
@@ -50,6 +51,7 @@ function addTableRow(todoDictionary, appIsLoading)
     element2.id = "text" + rowID;
     element2.value = todoDictionary["text"];
     element2.setAttribute("onchange", "saveToDoList()");
+	element2.className = "textbox";
     cell2.appendChild(element2);
  
     // create the view button
@@ -59,6 +61,7 @@ function addTableRow(todoDictionary, appIsLoading)
     element3.id = rowID;
     element3.value = "View";
     element3.setAttribute("onclick", "viewSelectedRow(document.getElementById('text' + this.id))");
+	element3.className = "viewButton";
     cell3.appendChild(element3);
  
     // create the delete button
@@ -67,6 +70,7 @@ function addTableRow(todoDictionary, appIsLoading)
     element4.type = "button";
     element4.value = "Delete";
     element4.setAttribute("onclick", "deleteSelectedRow(this)");
+	element4.className = "deleteButton";
     cell4.appendChild(element4);
  
     // update the UI and save the to-do list
