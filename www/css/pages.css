@@ -1,0 +1,38 @@
+body, html {
+	background-color: #99ffcc;
+}
+
+#createNew,#joinExisting {
+	width: 200px;
+	height: 50px;
+	margin-left:auto;
+	margin-right: auto;
+	display: flex;
+	justify-content: center; /* align horizontal */
+	align-items: center; /* align vertical */
+	border: #FFFFFF 1px solid;
+	margin-bottom: 25px;
+}
+
+#wrap {
+	margin: 0 auto;
+	width: 80%;
+}
+
+#viewExisting {
+	width: 200px;
+	height: 50px;
+	left: 200px;
+	display: inline-block;
+	border: #FFFFFF 1px solid;
+	margin-right: 25px;
+	line-height: 50px;
+}
+
+#manageGroup {
+	width: 200px;
+	height: 50px;
+	display: inline-block;
+	border: #FFFFFF 1px solid;
+	line-height: 50px;
+}
