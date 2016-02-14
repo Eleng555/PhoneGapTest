@@ -2,7 +2,7 @@
 
 *{
 	font-family: 'Slabo 27px', serif;
-	font-size: 18px;
+	color: #006666;
 }
 html {
 		/* IE10+ */ 
@@ -39,11 +39,6 @@ html {
 	margin-bottom: 25px;
 }
 
-#createNew{
-	position: relative;
-	margin-top: 100px;
-}
-
 #igloo{
 	position: fixed;
 	right: 10px;
@@ -54,3 +49,7 @@ a{
 	text-decoration: none;
 	color: #006666;
 }
+ .content {
+	position: relative;
+	margin-top: 100px;
+ }
