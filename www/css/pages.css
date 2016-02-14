@@ -1,3 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Slabo+27px);
+
+*{
+	font-family: 'Slabo 27px', serif;
+	font-size: 18px;
+}
 html {
 		/* IE10+ */ 
 	background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #99FFCC 50%, #009999 100%);
@@ -29,7 +35,7 @@ html {
 	display: flex;
 	justify-content: center; /* align horizontal */
 	align-items: center; /* align vertical */
-	border: #FFFFFF 1px solid;
+	border: #FFFFFF 2px solid;
 	margin-bottom: 25px;
 }
 
@@ -40,6 +46,11 @@ html {
 
 #igloo{
 	position: fixed;
-	right: 5px;
-	top: 0px;
+	right: 10px;
+	top: 10px;
+}
+
+a{
+	text-decoration: none;
+	color: #006666;
 }
