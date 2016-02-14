@@ -33,7 +33,15 @@
     }
     return "";
 }
-		$("#members").html(decodeURIComponent(getCookie("Members")));
+	 	var members = decodeURIComponent(getCookie("Members"));
+	 	/*var list= document.createElement('ul');
+	 	for(var a = 0; a < members.length; a++){
+			var div=document.createElement('div');
+			var item=document.createElement('li');
+			list.appendChild(div);
+			item.appendChild(div);
+			item.appendChild(div);
+			}*/
 		</script>
     
 </html>

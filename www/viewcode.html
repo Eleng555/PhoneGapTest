@@ -17,13 +17,20 @@
 		   <p class="snowflake">*</p>
 	   </div>
         <div class="content">
-			<p class="title">View Team</p>
-		</div>
-        <center><p><strong>Enter Join Code</strong></p>
-        <form method='post' action='' onsubmit="javascript:submit_form();return false">
-            <input type="text" name="joinCode" required> <br/><br/>
-            <input type="submit" value="Submit">
+			<p class="title">View Group</p>
+		<div id="forms">
+        <form id="sampleform" method='post' action='' onsubmit="javascript:submit_form();return false">
+            <p>
+   			<label>
+	   			Join Code: <input type='text' name='JoinCode' required />
+	   		</label>
+			</p>
+			<p>
+				<center><input type="submit" name="submit" value="Submit"></center>
+			</p>
         </form>
+			</div>
+		</div>
         </center>  	
         <script type="text/javascript" src="js/fallingsnow.js"></script>
     </body>

@@ -56,12 +56,15 @@ app.post("/viewGroup", function(req, res) {
 	var code = req.body["JoinCode"];
 	var members = [];
 	if(db("organizers").filter({"JoinCode": code}) != null){
-		members.push(JSON.stringify(db("organizers").filter({"JoinCode": code})));
+		members.push((db("organizers").chain().filter({"JoinCode": code}).map("Name").value()).toString());
+		members.push((db("organizers").chain().filter({"JoinCode": code}).map("Email").value()).toString());
 		if(db("users").filter({"JoinCode": code}) != null){
-			members.push(JSON.stringify(db("users").filter({"JoinCode": code})));
-			res.cookie("Members", members);
-			res.send({ success: 1 });
+			members.push((db("users").chain().filter({"JoinCode": code}).map("Name").value()).toString());
+			members.push((db("users").chain().filter({"JoinCode": code}).map("Email").value()).toString());
 		}
+		console.log(members);
+		res.cookie("Members", members);
+		res.send({ success: 1 });
 	}
 	else{
 		res.send({ success: 0});
