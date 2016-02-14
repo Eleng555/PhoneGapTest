@@ -4,7 +4,7 @@ function createNewToDo()
     var todoDictionary = {};
  
     // prompt the user to enter to-do
-    var todo = prompt("To-Do","");
+    var todo = navigator.notification.prompt("To-Do", null, "ENTER YOUR THING");
     if (todo != null)
     {
         if (todo == "")
@@ -156,7 +156,8 @@ function removeCompletedTasks()
     // save the to-do list
     saveToDoList();
  
-    alert("Completed Tasks Were Removed Successfully.");
+    // alert("Completed Tasks Were Removed Successfully.");
+	navigator.notification.alert("Completed Tasks Were Removed Successfully.", null, "Done!", "kk");
 }
 
 // save the to-do list

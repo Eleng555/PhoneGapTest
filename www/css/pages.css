@@ -1,8 +1,27 @@
-body, html {
-	background-color: #99ffcc;
+html {
+		/* IE10+ */ 
+	background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #99FFCC 50%, #009999 100%);
+
+	/* Mozilla Firefox */ 
+	background-image: -moz-linear-gradient(top left, #FFFFFF 0%, #99FFCC 50%, #009999 100%);
+
+	/* Opera */ 
+	background-image: -o-linear-gradient(top left, #FFFFFF 0%, #99FFCC 50%, #009999 100%);
+
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #FFFFFF), color-stop(50, #99FFCC), color-stop(100, #009999));
+
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-linear-gradient(top left, #FFFFFF 0%, #99FFCC 50%, #009999 100%);
+
+	/* W3C Markup */ 
+	background-image: linear-gradient(to bottom right, #FFFFFF 0%, #99FFCC 50%, #009999 100%);
+	
+	background-repeat: no-repeat;
+	height: 100%;
 }
 
-#createNew,#joinExisting {
+#createNew,#joinExisting,#manageGroup,#viewExisting {
 	width: 200px;
 	height: 50px;
 	margin-left:auto;
@@ -14,25 +33,13 @@ body, html {
 	margin-bottom: 25px;
 }
 
-#wrap {
-	margin: 0 auto;
-	width: 80%;
+#createNew{
+	position: relative;
+	margin-top: 50px;
 }
 
-#viewExisting {
-	width: 200px;
-	height: 50px;
-	left: 200px;
-	display: inline-block;
-	border: #FFFFFF 1px solid;
-	margin-right: 25px;
-	line-height: 50px;
-}
-
-#manageGroup {
-	width: 200px;
-	height: 50px;
-	display: inline-block;
-	border: #FFFFFF 1px solid;
-	line-height: 50px;
+#igloo{
+	position: fixed;
+	right: 5px;
+	top: 0px;
 }
