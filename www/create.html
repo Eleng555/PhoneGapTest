@@ -7,42 +7,7 @@
                 <link rel="stylesheet" type="text/css" href="css/pages.css"/>
                 <link rel="stylesheet" type="text/css" href="css/fallingsnow.css"/>
          <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-	<script type="text/javascript">	
-		
-		function ConvertFormToJSON(form){
-			var array = jQuery(form).serializeArray();
-			var json = {};
-			
-			jQuery.each(array, function() {
-				json[this.name] = this.value || '';
-			});
-			
-			return json;
-		}
-		
-		jQuery(document).on('ready', function() {
-			jQuery('form#add-new-task').bind('submit', function(event){
-				event.preventDefault();
-				
-				var form = this;
-				var json = ConvertFormToJSON(form);
-				var tbody = jQuery('#to-do-list > tbody');
-
-				$.ajax({
-					type: "POST",
-					url: "submit.php",
-					data: json,
-					dataType: "json"
-				}).always(function() { 
-					tbody.append('<tr><th scope="row" style="background-color:' + form['Name'].value + form['Email'].value + '</td><td>' + form['GroupName'].value + '</td><td>' + form['Gift1'].value + '</td><td>' + form['Gift2'].value + '</td></td>'+form['Gift3'].value + '</td></td>');	
-				}).fail(function() { 
-					alert("Failed to add to-do"); 
-				});
-
-				return true;
-			});
-		});
-	</script>
+	
     </head>
 
 	<body>
@@ -96,9 +61,7 @@
 			
 	</body>
 	 <script>
-    function theController($scope) {
-        $scope.update = angular.copy.person;
-        }
+   
         var submit_form = function() {
         	var options = $("#sampleform").serializeArray();
         	console.log(options);
