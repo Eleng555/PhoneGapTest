@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Groups</title>
+        <title>Organizer Login</title>
 		<link rel="stylesheet" type="text/css" href="css/pages.css"/>
 		<link rel="stylesheet" type="text/css" href="css/fallingsnow.css"/>
 		<script type="text/javascript" src="cordova.js"></script>
@@ -13,11 +13,21 @@
 		   <p class="snowflake">*</p>
 	   </div>
 	   <div id="igloo"><center><a href="index.html"><img src="img/pixelgoo.png" /><br/>Home</a></center></div>
-	   <div id="container">
-		   <div class="content" id="createNew"><a href="create.html">Create New Group</a></div>
-		   <div id="joinExisting"><a href="joincode.html">Join Existing Group</a></div>
-		   <div id="viewExisting"><a href="viewcode.html">View Existing Group</a></div>
-		   <div id="manageGroup"><a href="login.html">Manage Group</a></div>
+	   <div class="content" id="loginForm">
+		   <form id='sampleform' method='post' action='' onsubmit="javascript:submit_form()" >
+   			<p>
+   			<label>
+	   			Name: <input type='text' name='Name'/>
+	   		</label>
+			</p>
+			<p>
+	   		<label>
+	   			Email: <input type='text' name='Email'/>
+	   		</label>
+			</p>	   		
+			   <center><input type='submit' name='Login' value='Create Group' /></center>
+	   		</p>
+		</form>
 	   </div>
 	   
 		<script type="text/javascript" src="js/fallingsnow.js"></script>

@@ -53,3 +53,9 @@ a{
 	position: relative;
 	margin-top: 100px;
  }
+
+#loginForm {
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
