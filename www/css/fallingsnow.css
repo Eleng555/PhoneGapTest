@@ -11,7 +11,7 @@
     position: fixed;
     color: #FFFFFF;
     user-select: none;
-    z-index: 1000;
+    z-index: -1;
 }
 .snowflake:hover {
     cursor: default;
