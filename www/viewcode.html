@@ -5,7 +5,9 @@
         <link rel="stylesheet" type="text/css" href="css/pages.css"/>
 		<link rel="stylesheet" type="text/css" href="css/fallingsnow.css"/>
 		<script type="text/javascript" src="cordova.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+		
 		
     </head>
 	
@@ -18,13 +20,40 @@
 			<p class="title">View Team</p>
 		</div>
         <center><p><strong>Enter Join Code</strong></p>
-        <form action="submit">
-            <input type="text" name="joinCode"> <br/><br/>
+        <form method='post' action='' onsubmit="javascript:submit_form();return false">
+            <input type="text" name="joinCode" required> <br/><br/>
             <input type="submit" value="Submit">
         </form>
         </center>  	
         <script type="text/javascript" src="js/fallingsnow.js"></script>
     </body>
- 
+ 	<script type="text/javascript">
+			
+        var submit_form = function() {
+        	var options = $("#sampleform").serializeArray();
+        	console.log(options);
+        	var data = {};
+        	for(var i=0; i<options.length; i++) {
+        		data[options[i]["name"]] = options[i]["value"];
+        	}
+        	console.log(data);
+        	/*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+        		fileSystem.root.getFile("data2.json", { create: true, exclusive: false }, function(fileEntry) {
+        			fileEntry.createWriter(function(writer) {
+        				writer.onwrite = function(e) {
+        					console.log("Success.");
+        				}	
+        				writer.write(JSON.stringify(data));
+        			});
+        		});
+        	}, function() {
+        		console.err("Your browser doesn't support this.");
+        	});*/
+			$.post("/viewGroup", data, function(result) {
+				console.log(result);
+				location.href = "view.html";
+			});
+        };
+		</script>
     
 </html>

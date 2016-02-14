@@ -22,7 +22,7 @@ var token = function(length) {
 app.get("/", function(req, res) {
 	res.send("Hello");
 });
-app.post("/upload", function(req, res) {
+app.post("/createGroup", function(req, res) {
 	console.log(req.body);
 	var found = false, id = token(6);
 	while (!found) {
@@ -38,7 +38,38 @@ app.post("/upload", function(req, res) {
 	res.send({ success: 1 });
 });
 
+app.post("/joinGroup", function(req, res) {
+	console.log(req.body);
+	var code = req.body["JoinCode"];
+	if(db("organizers").find({"JoinCode": code}) != null){
+		db("users").push(req.body);
+		res.send({ success: 1 });
+	}
+	else{
+		res.send({ success: 0});
+	}
+	
+});
+
+app.post("/viewGroup", function(req, res) {
+	console.log(req.body);
+	var code = req.body["JoinCode"];
+	var members = [];
+	if(db("organizers").filter({"JoinCode": code}) != null){
+		members.push(JSON.stringify(db("organizers").filter({"JoinCode": code})));
+		if(db("users").filter({"JoinCode": code}) != null){
+			members.push(JSON.stringify(db("users").filter({"JoinCode": code})));
+			res.cookie("Members", members);
+			res.send({ success: 1 });
+		}
+	}
+	else{
+		res.send({ success: 0});
+	}
+	
+});
+
 app.set("host", "0.0.0.0");
-app.listen(1337, function() {
+app.listen(80, function() {
 	console.log("Listening.");
 });

@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="css/fallingsnow.css"/>
 		<script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 		<title>Join Group</title>
 	</head>
 
@@ -16,9 +17,9 @@
 	   </div>
 
 	<div class="content">	
- 		<p class="title">Create Group</p>
+ 		<p class="title">Join Group</p>
 		<div id="forms">
-		<form id='sampleform' method='post' action='' onsubmit="javascript:submit_form()" >
+		<form id='sampleform' onsubmit="javascript:submit_form();return false;" >
    			<p>
    			<label>
 	   			Name: <input type='text' name='Name' required />
@@ -51,4 +52,33 @@
 			
 		<script type="text/javascript" src="js/fallingsnow.js"></script>
 	</body>
+		<script type="text/javascript">
+			
+        var submit_form = function() {
+        	var options = $("#sampleform").serializeArray();
+        	console.log(options);
+        	var data = {};
+        	for(var i=0; i<options.length; i++) {
+        		data[options[i]["name"]] = options[i]["value"];
+        	}
+        	console.log(data);
+        	/*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+        		fileSystem.root.getFile("data2.json", { create: true, exclusive: false }, function(fileEntry) {
+        			fileEntry.createWriter(function(writer) {
+        				writer.onwrite = function(e) {
+        					console.log("Success.");
+        				}	
+        				writer.write(JSON.stringify(data));
+        			});
+        		});
+        	}, function() {
+        		console.err("Your browser doesn't support this.");
+        	});*/
+			$.post("/joinGroup", data, function(result) {
+				console.log(result);
+				location.href = "view.html";
+			});
+			return false;
+        };
+		</script>
 </html>
