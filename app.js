@@ -55,16 +55,21 @@ app.post("/viewGroup", function(req, res) {
 	console.log(req.body);
 	var code = req.body["JoinCode"];
 	var members = [];
-	if(db("organizers").filter({"JoinCode": code}) != null){
-		members.push((db("organizers").chain().filter({"JoinCode": code}).map("Name").value()).toString());
-		members.push((db("organizers").chain().filter({"JoinCode": code}).map("Email").value()).toString());
-		if(db("users").filter({"JoinCode": code}) != null){
-			members.push((db("users").chain().filter({"JoinCode": code}).map("Name").value()).toString());
-			members.push((db("users").chain().filter({"JoinCode": code}).map("Email").value()).toString());
+	var org = db("organizers").find({"JoinCode": code});
+	if(org != null){
+		members.push({
+			"Name": org["Name"],
+			"Email": org["Email"]
+		});
+		var _members = db("users").filter({"JoinCode": code});
+		if(_members != null){
+			console.log(_members);
+			for(var i=0; i<_members.length; i++) {
+				members.push(_members[i]);
+			}
 		}
 		console.log(members);
-		res.cookie("Members", members);
-		res.send({ success: 1 });
+		res.send({ success: 1, members: members });
 	}
 	else{
 		res.send({ success: 0});
@@ -72,7 +77,7 @@ app.post("/viewGroup", function(req, res) {
 	
 });
 
-app.set("host", "0.0.0.0");
-app.listen(80, function() {
+app.set("host", process.env.HOST || "0.0.0.0");
+app.listen(~~(process.env.PORT) || 80, function() {
 	console.log("Listening.");
 });
