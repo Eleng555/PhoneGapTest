@@ -1,42 +1,91 @@
 <!DOCTYPE html>
-<html>
-	<head>
+<html lang="en" ng-app>
+    <head>
+        <title>Create</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+                <link rel="stylesheet" type="text/css" href="css/pages.css"/>
+                <link rel="stylesheet" type="text/css" href="css/fallingsnow.css"/>
+         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">	
 		
-		<link rel="stylesheet" href="page.css">
-		<title>Create</title>
-	</head>
+		function ConvertFormToJSON(form){
+			var array = jQuery(form).serializeArray();
+			var json = {};
+			
+			jQuery.each(array, function() {
+				json[this.name] = this.value || '';
+			});
+			
+			return json;
+		}
+		
+		jQuery(document).on('ready', function() {
+			jQuery('form#add-new-task').bind('submit', function(event){
+				event.preventDefault();
+				
+				var form = this;
+				var json = ConvertFormToJSON(form);
+				var tbody = jQuery('#to-do-list > tbody');
+
+				$.ajax({
+					type: "POST",
+					url: "submit.php",
+					data: json,
+					dataType: "json"
+				}).always(function() { 
+					tbody.append('<tr><th scope="row" style="background-color:' + form['Name'].value + form['Email'].value + '</td><td>' + form['GroupName'].value + '</td><td>' + form['Gift1'].value + '</td><td>' + form['Gift2'].value + '</td></td>'+form['Gift3'].value + '</td></td>');	
+				}).fail(function() { 
+					alert("Failed to add to-do"); 
+				});
+
+				return true;
+			});
+		});
+	</script>
+    </head>
 
 	<body>
 		<div id="igloo"><center><a href="index.html"><img src="img/pixelgoo.png" /><br/>Home</a></center></div>
+		 <div id="snowflakeContainer">
+		   <p class="snowflake">*</p>
+	   </div>
 		<!--Form-->
 		<h1>Create New</h1>
+
+	<div ng-controller="theController">	
  
-	<form id='sampleform' method='post' action='' >
-   		<p>
-   			Name: <input type='text' name='Name' />
-   		</p>
+		<form id='sampleform' method='post' action='' onsubmit="javascript:submit_form()" >
+   			<p>
+   			<label>
+	   			Name: <input type='text' name='Name' ng-model = 'person.name' />
+	   		</label>
+			</p>
+			<p>
+	   		<label>
+	   			Email: <input type='text' name='Email' ng-model = 'person.email'/>
+	   		</label>
+			</p>	   		
+			<p>
+	   		<label>
+	   			Group Name: <input type='text' name='GroupName' ng-model = 'person.groupName'/>
+	   		</label>
+			</p>
+	   		<h2>Wish List</h2>
 
-   		<p>
-   			Email: <input type='text' name='Email' />
-   		</p>
+	   		<ol>
+	  			<li><p> <input type='text' name='Gift1' ng-model='person.gift1' />
+	   		</p></li>
+	 			<li><p><input type='text' name='Gift2' ng-model='person.gift2'/></p></li>
+	  			<li><p><input type='text' name='Gift3' ng-model='person.gift3' /></p></li>
+			</ol>
 
-   		<p>
-   			Group Name: <input type='text' name='GroupName' />
-   		</p>
-
-   		<h2>Wish List</h2>
-
-   		<ol>
-  			<li><p> <input type='text' name='Gift1' />
-   		</p></li>
- 			<li><p><input type='text' name='Gift1' /></p></li>
-  			<li><p><input type='text' name='Gift1' /></p></li>
-		</ol>
-
-   		<p>
-   			<input type='submit' name='Create Group' value='Create Group' />
-   		</p>
-	</form>
+	   		<p>
+	   			<input type='submit' name='Create Group' value='Create Group' />
+	   		</p>
+		</form>
+	</div>
+	
 
 
 		<!--SpreadSheet-->
@@ -46,4 +95,34 @@
 			
 			
 	</body>
+	 <script>
+    function theController($scope) {
+        $scope.update = angular.copy.person;
+        }
+        var submit_form = function() {
+        	var options = $("#sampleform").serializeArray();
+        	console.log(options);
+        	var data = {};
+        	for(var i=0; i<options.length; i++) {
+        		data[options[i]["name"]] = options[i]["value"];
+        	}
+        	console.log(data);
+        	/*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+        		fileSystem.root.getFile("data2.json", { create: true, exclusive: false }, function(fileEntry) {
+        			fileEntry.createWriter(function(writer) {
+        				writer.onwrite = function(e) {
+        					console.log("Success.");
+        				}	
+        				writer.write(JSON.stringify(data));
+        			});
+        		});
+        	}, function() {
+        		console.err("Your browser doesn't support this.");
+        	});*/
+			$.post("http://172.16.1.154:1337/upload", data, function(result) {
+				console.log(result);
+			});
+        };
+    </script>
+    <script type="text/javascript" src="js/fallingsnow.js"></script>
 </html>
