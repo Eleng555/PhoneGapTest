@@ -21,12 +21,17 @@
 		<form id='sampleform' method='post' action='' onsubmit="javascript:submit_form()" >
    			<p>
    			<label>
-	   			Name: <input type='text' name='Name'/>
+	   			Name: <input type='text' name='Name' required />
+	   		</label>
+			</p>
+   			<p>
+   			<label>
+	   			Join Code: <input type='text' name='JoinCode' required />
 	   		</label>
 			</p>
 			<p>
 	   		<label>
-	   			Email: <input type='text' name='Email'/>
+	   			Email: <input type='email' name='Email' required/>
 	   		</label>
 			</p>	   		
 	   		<h2>Wish List</h2>

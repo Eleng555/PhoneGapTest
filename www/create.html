@@ -80,8 +80,9 @@
         	}, function() {
         		console.err("Your browser doesn't support this.");
         	});*/
-			$.post("http://172.16.3.83:1337/upload", data, function(result) {
+			$.post("/upload", data, function(result) {
 				console.log(result);
+				location.href = "displaycode.html";
 			});
         };
     </script>
