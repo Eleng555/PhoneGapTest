@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Zombie Apocalypse To-Do List</title>
-        <link rel="stylesheet" type="text/css" href="css/page.css"/>
+        <title>Join Group</title>
+        <link rel="stylesheet" type="text/css" href="css/pages.css"/>
+		<link rel="stylesheet" type="text/css" href="css/fallingsnow.css"/>
 		<script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 		
     </head>
 	
     <body> 
+		<div id="igloo"><center><a href="index.html"><img src="img/pixelgoo.png" /><br/>Home</a></center></div>
+		 <div id="snowflakeContainer">
+		   <p class="snowflake">*</p>
+	   </div>
         <center>
-        <p><font size = "20"><strong>Enter Join Code</strong></font></p>
+		<p class="title">Join Existing Group</p>
+        <p><strong>Enter Join Code</strong></p>
 
-        <form action="submit to some server">
-            <input type="text" name="joinCode"> <br>
+        <form action="submit">
+            <input type="text" name="joinCode"> <br/><br/>
             <input type="submit" value="Submit">
         </form>
         </center>  	
-        
+        <script type="text/javascript" src="js/fallingsnow.js"></script>
     </body>
  
     
