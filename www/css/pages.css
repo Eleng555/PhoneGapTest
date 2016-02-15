@@ -68,24 +68,7 @@ a{
 }
 
 #backgroundaudio {
-  display: block;
-  position: fixed;
-  bottom: 0px;
-  left: 5px;
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -ms-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
- }
- 
- #backgroundaudio audio {
-  background: #ffffff;
-  padding: 5px;
-  display: table-cell;
-  vertical-align: middle;
-  height: 43px;
-  z-index: 9998;
+  display: none;
  }
 
 #titlepagedesign{
