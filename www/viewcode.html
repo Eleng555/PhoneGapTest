@@ -42,19 +42,6 @@
         	for(var i=0; i<options.length; i++) {
         		data[options[i]["name"]] = options[i]["value"];
         	}
-        	console.log(data);
-        	/*window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-        		fileSystem.root.getFile("data2.json", { create: true, exclusive: false }, function(fileEntry) {
-        			fileEntry.createWriter(function(writer) {
-        				writer.onwrite = function(e) {
-        					console.log("Success.");
-        				}	
-        				writer.write(JSON.stringify(data));
-        			});
-        		});
-        	}, function() {
-        		console.err("Your browser doesn't support this.");
-        	});*/
 			$.post("/viewGroup", data, function(result) {
 				console.log(result);
 				location.href = "view.html";

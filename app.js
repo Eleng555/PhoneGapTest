@@ -33,6 +33,7 @@ app.post("/createGroup", function(req, res) {
 		}
 	}
 	req.body["JoinCode"] = id;
+	var password = req.body["Password"];
 	db("organizers").push(req.body);
 	res.cookie("JoinCode", id);
 	res.send({ success: 1 });
@@ -41,12 +42,14 @@ app.post("/createGroup", function(req, res) {
 app.post("/joinGroup", function(req, res) {
 	console.log(req.body);
 	var code = req.body["JoinCode"];
-	if(db("organizers").find({"JoinCode": code}) != null){
+	var email = req.body["Email"];
+	if(db("organizers").find({"JoinCode": code}) != undefined && db("users").find({"JoinCode": code, "Email": email}) == undefined){
 		db("users").push(req.body);
+		res.cookie("JoinCode", code);
 		res.send({ success: 1 });
 	}
 	else{
-		res.send({ success: 0});
+		res.send({ success: 0 });
 	}
 	
 });
