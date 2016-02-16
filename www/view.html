@@ -28,7 +28,11 @@
 				for(var i=0; i<result["members"].length; i++) {
 					var member = result["members"][i];
 					var el = document.createElement("li");
-					el.innerHTML = "<p style='margin:0'>" + member["Name"] + "</p>" + member["Email"];
+					if(i==0){
+						el.innerHTML = "<p style='margin:0'>" + member["Name"] + "  <b style='color: black'>(Organizer)</b></p>" + member["Email"];}
+					else{
+						el.innerHTML = "<p style='margin:0'>" + member["Name"] + "</p>" + member["Email"];}	
+					
 					document.getElementById("members").appendChild(el);
 				}
 			}
