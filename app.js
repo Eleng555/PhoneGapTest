@@ -1,9 +1,22 @@
 var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
-const low = require('lowdb')
-const storage = require('lowdb/file-sync')
-const db = low('db.json', { storage: storage })
+var mongodb = require('mongodb');
+
+var MongoClient = require('mongodb').MongoClient;
+var db;
+
+// Initialize connection once
+MongoClient.connect(process.env.MONGO_URI, function(err, database) {
+  	if(err) throw err;
+  	db = database;
+	
+	app.set("host", process.env.HOST || "0.0.0.0");
+	app.listen(~~(process.env.PORT) || 80, function() {
+		console.log("Listening.");
+	});
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static("www"));
@@ -24,7 +37,7 @@ app.get("/", function(req, res) {
 });
 app.post("/createGroup", function(req, res) {
 	console.log(req.body);
-	var found = false, id = token(6);
+	/*var found = false, id = token(6);
 	while (!found) {
 		if (typeof db("organizers").find({ id: id }) == "undefined") {
 			found = true;
@@ -35,7 +48,12 @@ app.post("/createGroup", function(req, res) {
 	req.body["JoinCode"] = id;
 	var password = req.body["Password"];
 	db("organizers").push(req.body);
-	res.cookie("JoinCode", id);
+	res.cookie("JoinCode", id);*/
+	db.collection("groups").insert({"gid": token(6), "Name": req.body["Name"]}, function(err, doc){
+		if(err){
+			console.log(err);
+		}
+	});
 	res.send({ success: 1 });
 });
 
@@ -78,9 +96,4 @@ app.post("/viewGroup", function(req, res) {
 		res.send({ success: 0});
 	}
 	
-});
-
-app.set("host", process.env.HOST || "0.0.0.0");
-app.listen(~~(process.env.PORT) || 80, function() {
-	console.log("Listening.");
 });
