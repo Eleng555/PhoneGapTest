@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 var mongodb = require('mongodb');
 
 var MongoClient = require('mongodb').MongoClient;
@@ -49,10 +50,21 @@ app.post("/createGroup", function(req, res) {
 	var password = req.body["Password"];
 	db("organizers").push(req.body);
 	res.cookie("JoinCode", id);*/
-	db.collection("groups").insert({"gid": token(6), "Name": req.body["Name"]}, function(err, doc){
+	var joincode = token(10);
+	
+	db.collection("groups").insert({"gid": joincode, "name": req.body["Name"]}, function(err, doc){
 		if(err){
 			console.log(err);
 		}
+		var salt = bcrypt.genSaltSync(10);
+		var phash = bcrypt.hashSync(req.body["Password"], salt);
+		
+		var user = {"uid": token(), "gid": joincode, "name": req.body["Name"], "password": phash, "email": req.body["Email"], "wishlist": [req.body["Gift1"], req.body["Gift2"], req.body["Gift3"]], "organizer": true};
+		db.collection("users").insert(user, function(err, doc){
+			if(err){
+				console.log(err);
+			}
+		});
 	});
 	res.send({ success: 1 });
 });
@@ -60,9 +72,15 @@ app.post("/createGroup", function(req, res) {
 app.post("/joinGroup", function(req, res) {
 	console.log(req.body);
 	var code = req.body["JoinCode"];
-	var email = req.body["Email"];
-	if(db("organizers").find({"JoinCode": code}) != undefined && db("users").find({"JoinCode": code, "Email": email}) == undefined){
-		db("users").push(req.body);
+	/*if(db("organizers").find({"JoinCode": code}) != undefined && db("users").find({"JoinCode": code, "Email": email}) == undefined){
+		db("users").push(req.body);*/
+	if(db.collection("groups").find({"gid": code}) != -1){
+		var user = {"uid": token(), "gid": code, "name": req.body["Name"], "email": req.body["Email"], "wishlist": [req.body["Gift1"], req.body["Gift2"], req.body["Gift3"]], "organizer": false};
+		db.collection("users").insert(user, function(err, doc){
+			if(err){
+				console.log(err);
+			}
+		})	
 		res.cookie("JoinCode", code);
 		res.send({ success: 1 });
 	}
@@ -76,7 +94,7 @@ app.post("/viewGroup", function(req, res) {
 	console.log(req.body);
 	var code = req.body["JoinCode"];
 	var members = [];
-	var org = db("organizers").find({"JoinCode": code});
+	/*var org = db("organizers").find({"JoinCode": code});
 	if(org != null){
 		members.push({
 			"Name": org["Name"],
@@ -89,7 +107,9 @@ app.post("/viewGroup", function(req, res) {
 				members.push(_members[i]);
 			}
 		}
-		console.log(members);
+		console.log(members);*/
+	var org = db.collection("users").find({});
+		if(org != null){
 		res.send({ success: 1, members: members });
 	}
 	else{
