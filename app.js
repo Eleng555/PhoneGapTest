@@ -139,7 +139,33 @@ app.post("/viewGroup", function(req, res) {
 			}
 		}
 		console.log(members);*/
-	db.collection("users").find({"joincode": code}).toArray(function(err, doc){
+	db.collection("users").find({"gid": code}).toArray(function(err, doc){
+		console.log(doc, doc.length);
+		if(doc.length > 0){
+			for (var i = 0; i < doc.length; i++){
+				members.push({
+					"Name": doc[i]["name"],
+					"Email": doc[i]["email"]
+				});
+			}
+			console.log(members);
+			res.send({ success: 1, members: members });
+		}
+		else{
+			res.send({ success: 0, message: "A group does not exist with this joincode."});
+		}
+		if(err){
+			console.log(err);
+		}
+	});
+	
+});
+
+app.post("/manageGroup", function(req, res) {
+	console.log(req.body);
+	var code = req.body["JoinCode"];
+	var members = [];
+	db.collection("users").find({"gid": code}).sort({"organizer": 1}).toArray(function(err, doc){
 		console.log(doc, doc.length);
 		if(doc.length > 0){
 			for (var i = 0; i < doc.length; i++){

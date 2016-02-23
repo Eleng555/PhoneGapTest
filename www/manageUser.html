@@ -23,15 +23,19 @@
 		<script type="text/javascript" src="js/fallingsnow.js"></script>
    </body>
  <script type="text/javascript">
-		$.post("/viewGroup", { "JoinCode": $.cookie("JoinCode") }, function(result) {
+		$.post("/manageGroup", { "JoinCode": $.cookie("JoinCode") }, function(result) {
 			if (result["success"] == 1) {
 				for(var i=0; i<result["members"].length; i++) {
 					var member = result["members"][i];
 					var el = document.createElement("li");
 					if(i==0){
-						el.innerHTML = "<p style='margin:0'>" + member["Name"] + "  <b style='color: black'>(Organizer)</b></p>" + member["Email"];}
+						el.innerHTML = "<p style='margin:0'>" + member["Name"] + "  <b style='color: black'>(Organizer)</b> <input type='button' value='Edit Member Name' name='editName' onClick='prompt(\x22Enter New Name\x22)' /></p><p>" + member["Email"] + "</p><p>" + 
+							"<input type='button' value='Edit Member Email' name='editEmail' onClick='prompt(\x22Enter New Email\x22)' /> " + 
+							"<input type='button' value='Remove Member' name='removeUser'/>";}
 					else{
-						el.innerHTML = "<p style='margin:0'>" + member["Name"] + "</p>" + member["Email"];}	
+						el.innerHTML = "<p style='margin:0'>" + member["Name"] + "<input type='button' value='Edit Member Name' name='editName' onClick='prompt(\x22Enter New Name\x22)' /></p><p>" + member["Email"] + "</p><p>" + 
+							"<input type='button' value='Edit Member Email' name='editEmail' onClick='prompt(\x22Enter New Email\x22)' /> " + 
+							"<input type='button' value='Remove Member' name='removeUser'/>"}	
 					document.getElementById("members").appendChild(el);
 				}
 			}
